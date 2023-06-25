@@ -1,5 +1,8 @@
 
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+const { DATABASE_TOKEN_KEY } = require('../../.env/secrets.js');
 
 const hash = async (password) => {
   try{
@@ -23,4 +26,9 @@ const compareHash = async (password, hashedPassword) => {
   }
 }
 
-module.exports = { hash, compareHash };
+const createToken = (payload) => {
+  const token = jwt.sign(payload, DATABASE_TOKEN_KEY);
+  return token;
+}
+
+module.exports = { hash, compareHash, createToken };
