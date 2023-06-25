@@ -41,7 +41,7 @@ class UsersModel{
     return true;
   }
 
-  async getUserByUsername(username){
+  async getByUsername(username){
     let result;
     try{
       const query = `SELECT id, pgp_sym_decrypt(username::bytea, '${REGULAR_ENCRYPTION_KEY}') AS username, pgp_sym_decrypt(email::bytea, '${REGULAR_ENCRYPTION_KEY}') AS email, hashed_password, authority, monthly_requests FROM schema1.users WHERE pgp_sym_decrypt(username::bytea, '${REGULAR_ENCRYPTION_KEY}') = $1`;
@@ -49,7 +49,7 @@ class UsersModel{
       result = await database.query(query, values);
     } 
     catch(error){
-      throw new Error('Failed due to no users table or no database connection.');
+      throw new Error('Failed due to server has no database connection.');
     }
 
     if(result.rows.length === 0){
@@ -58,7 +58,7 @@ class UsersModel{
     return result.rows[0];
   }
 
-  async addUser(username, email, password){
+  async add(username, email, password){
     const isUsernameUnique = await this.isUsernameUnique(username);
     if(!isUsernameUnique){
       throw new Error('Failed due to username already exists.');
@@ -76,7 +76,7 @@ class UsersModel{
       return 'Successfully added user.';
     } 
     catch(error){
-      throw new Error('Failed due to no users table, no database connection, or invalid inputs.');
+      throw new Error('Failed due to server has no database connection or invalid inputs.');
     }
   }
 
@@ -123,7 +123,7 @@ class UsersModel{
       result = await database.query(query, values);
     }
     catch(error){
-      throw new Error('Failed due to no users table, no database connection, or invalid inputs.');
+      throw new Error('Failed due to server has no database connection or invalid inputs.');
     }
 
     if(result.rows.length === 0){
@@ -140,7 +140,7 @@ class UsersModel{
       result = await database.query(idQuery, values);
     }
     catch(error){
-      throw new Error('Failed due to no users table, no database connection, or invalid inputs.');
+      throw new Error('Failed due to server has no database connection or invalid inputs.');
     }
 
     if(result.rows.length === 0){

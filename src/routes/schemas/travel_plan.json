@@ -1,0 +1,21 @@
+
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TravelPlan",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "user_id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "limit": {
+      "type": "integer"
+    }
+  },
+  "additionalProperties": false
+}

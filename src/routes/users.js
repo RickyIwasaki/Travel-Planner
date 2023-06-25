@@ -37,7 +37,7 @@ router.get('/get', async (request, response) => {
   try{
     const { username } = request.query;
     if(username){
-      const data = await userModel.getUserByUsername(username);
+      const data = await userModel.getByUsername(username);
       return response.status(200).json({ data });
     }
     else{
@@ -54,7 +54,7 @@ router.post('/add', async (request, response) => {
   try{
     const { username, email, password } = request.body;
     if(username && email && password){
-      const data = await userModel.addUser(username, email, password);
+      const data = await userModel.add(username, email, password);
       return response.status(200).json({ data });
     }
     else{

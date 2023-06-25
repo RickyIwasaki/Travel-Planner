@@ -15,11 +15,11 @@ CREATE TABLE schema1.users(
 );
 CREATE TABLE schema1.travel_plans(
   id SERIAL PRIMARY KEY,
-  name VARCHAR(128) NOT NULL
+  name TEXT NOT NULL
 );
 CREATE TABLE schema1.locations(
   id SERIAL PRIMARY KEY,
-  loaction_id INT NOT NULL
+  location_id INT NOT NULL UNIQUE
 );
 
 CREATE TABLE schema1.user_to_travel_plans(
@@ -30,5 +30,6 @@ CREATE TABLE schema1.user_to_travel_plans(
 CREATE TABLE schema1.travel_plans_to_locations(
   id SERIAL PRIMARY KEY,
   travel_plan_id INT REFERENCES schema1.travel_plans(id),
-  location_id INT REFERENCES schema1.locations(id)
+  location_id INT REFERENCES schema1.locations(id),
+  order_number INT
 );
